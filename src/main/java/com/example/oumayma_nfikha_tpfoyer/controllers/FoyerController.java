@@ -83,6 +83,13 @@ public class FoyerController implements Serializable {
         return "Foyer affected";
     }
 
+    @PutMapping("/{idFoyer}/desaffecter-universite")
+    public String desaffecterFoyerUniversite(@PathVariable Long idFoyer) {
+         foyerService.desaffecterFoyerUniversite(idFoyer);
+         return "Foyer desaffected";
+    }
+
+
     @GetMapping("/blocs/{idBloc}")
     public  List<Foyer> findByBlocs_IdBloc(@RequestParam Long idBloc) {
         return foyerService.findByBlocs_IdBloc(idBloc);

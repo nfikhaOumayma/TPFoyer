@@ -100,4 +100,12 @@ public class FoyerService implements IFoyerService {
     public Foyer findByBlocs_IdBlocAndUniversite_IdUniversite(Long idBloc, Long idUniversite) {
         return foyerRepository.findByBlocs_IdBlocAndUniversite_IdUniversite(idBloc, idUniversite);
     }
+
+    @Override
+    public void desaffecterFoyerUniversite(Long idFoyer) {
+        Foyer f = foyerRepository.findById(idFoyer).get();
+
+        f.setUniversite(null);
+        foyerRepository.save(f);
+    }
 }

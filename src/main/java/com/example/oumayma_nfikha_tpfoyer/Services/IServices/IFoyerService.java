@@ -36,4 +36,6 @@ public interface IFoyerService {
     List<Foyer> findByBlocs_IdBlocAndCapaciteFoyer(Long idBloc, Long capaciteFoyer);
 
     Foyer findByBlocs_IdBlocAndUniversite_IdUniversite(Long idBloc, Long idUniversite);
+
+     void desaffecterFoyerUniversite(Long idFoyer);
 }
