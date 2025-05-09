@@ -1,5 +1,6 @@
 package com.example.oumayma_nfikha_tpfoyer.Services.IServices;
 
+import com.example.oumayma_nfikha_tpfoyer.Entite.Bloc;
 import com.example.oumayma_nfikha_tpfoyer.Entite.Chambre;
 import com.example.oumayma_nfikha_tpfoyer.Entite.TypeChambre;
 
@@ -44,4 +45,12 @@ public interface IChambreService {
             String nomFoyer, LocalDate anneUniversitaire, String nomEtudiant);
 
     Long countByTypeCAndBloc_Foyer_NomFoyer(TypeChambre typeC, String nomFoyer);
+
+    List<Chambre>  getChambreParNomBloc(String nomBloc);
+
+    List<Chambre> getChambresParNomBlocKeyword(String nomBloc);
+
+    Bloc affecterChambresABloc(List<Long> numeroChambre, String nomBloc);
+
+    long nbChambreParTypeEtBloc( TypeChambre type, long idBloc) ;
 }

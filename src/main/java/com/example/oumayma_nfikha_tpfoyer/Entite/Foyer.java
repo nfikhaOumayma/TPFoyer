@@ -28,7 +28,7 @@ public class Foyer {
     @Column(name ="capaciteFoyer")
     Long capaciteFoyer;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "foyer", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     @JsonIgnore
     private Universite universite;
 

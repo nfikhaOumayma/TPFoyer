@@ -6,7 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BlocRepository extends JpaRepository<Bloc, Long> {
-    List<Bloc> findByNomBloc(String nomBloc);
+    Bloc findByNomBloc(String nomBloc);
+
+    //Bloc findByNomBloc(String nomBloc);
+
 
     List<Bloc> findByCapaciteBloc(Long capaciteBloc);
 

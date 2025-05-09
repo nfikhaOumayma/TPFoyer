@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -73,5 +74,34 @@ public class ReservationController {
         return reservationService.count();
     }
 
+    @PutMapping("/{idR}/etudiant")
+    public void affecterReservationAEtudiant(
+            @PathVariable Long idR,
+            @RequestParam String nomE,
+            @RequestParam String prenomE) {
 
+        reservationService.affecterReservationAEtudiant(idR, nomE, prenomE);
+    }
+
+    @DeleteMapping("/{idR}/etudiant")
+    public void desaffecterReservationAEtudiant(
+            @PathVariable Long idR,
+            @RequestParam String nomE,
+            @RequestParam String prenomE) {
+
+        reservationService.desaffecterReservationAEtudiant(idR, nomE, prenomE);
+    }
+
+    @GetMapping("/{debutAnnee}/{finAnnee}")
+    public List<Reservation> getReservationParAnneeUniversitaire(
+            @PathVariable("debutAnnee") LocalDate debutAnnee,
+            @PathVariable("finAnnee") LocalDate finAnnee) {
+
+        return reservationService.getReservationParAnneeUniversitaire(debutAnnee, finAnnee);
+    }
+
+    @DeleteMapping("/annuler/{cinEtudiant}")
+    public void annulerReservation(@PathVariable String cinEtudiant) {
+            reservationService.annulerReservation(cinEtudiant);
+    }
 }

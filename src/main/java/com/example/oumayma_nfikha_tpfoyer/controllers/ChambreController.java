@@ -1,5 +1,6 @@
 package com.example.oumayma_nfikha_tpfoyer.controllers;
 
+import com.example.oumayma_nfikha_tpfoyer.Entite.Bloc;
 import com.example.oumayma_nfikha_tpfoyer.Entite.Chambre;
 import com.example.oumayma_nfikha_tpfoyer.Entite.TypeChambre;
 import com.example.oumayma_nfikha_tpfoyer.Services.IServices.IChambreService;
@@ -115,5 +116,21 @@ public class ChambreController {
     @GetMapping("/count/type/{typeC}/foyer/{nomFoyer}")
     public Long countByTypeCAndFoyer(@PathVariable TypeChambre typeC, @PathVariable String nomFoyer) {
         return   chambreService.countByTypeCAndBloc_Foyer_NomFoyer(typeC, nomFoyer);
+    }
+
+    @PostMapping("/{nomBloc}/chambres")
+    public Bloc affecterChambresABloc(
+            @PathVariable String nomBloc,
+            @RequestBody List<Long> numeroChambre) {
+
+        return chambreService.affecterChambresABloc(numeroChambre, nomBloc);
+    }
+
+    @GetMapping("/countByTypeAndBloc/{type}/{idBloc}")
+    public long nbChambreParTypeEtBloc(
+            @PathVariable("type") TypeChambre type,
+            @PathVariable("idBloc") long idBloc) {
+
+        return chambreService.nbChambreParTypeEtBloc(type, idBloc);
     }
 }

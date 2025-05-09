@@ -36,6 +36,6 @@ public class Etudiant {
     @Column(name="dateNaissance")
     LocalDate dateNaissance;
 
-    @ManyToMany(mappedBy = "etudiants",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "etudiants",fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private Set<Reservation> reservations;
 }

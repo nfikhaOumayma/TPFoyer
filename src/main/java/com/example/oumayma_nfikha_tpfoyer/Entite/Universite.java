@@ -25,7 +25,7 @@ public class Universite {
     @Column(name="adresse")
     String adresse;
 
-    @OneToOne(mappedBy = "universite",fetch = FetchType.LAZY)
-    private Foyer foyers;
+    @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private Foyer foyer;
 
 }

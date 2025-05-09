@@ -24,7 +24,7 @@ public class Bloc implements Serializable {
     String nomBloc;
     Long capaciteBloc;
 
-    @ManyToOne
+    @ManyToOne( cascade = CascadeType.ALL)
     @JsonIgnore
     private Foyer foyer;
 

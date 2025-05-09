@@ -29,7 +29,7 @@ public interface IBlocService {
 
     Long count();
 
-    List<Bloc> findByBlocName(String blocName);
+    Bloc findByBlocName(String blocName);
 
     List<Bloc> findByCapacity(Long capacity);
 
@@ -52,4 +52,10 @@ public interface IBlocService {
     List<Bloc> findByFoyer_idFoyer(Long idFoyer);
 
     List<Bloc> findByFoyer_Universite_IdUniversite(Long idUniversite);
+
+    Bloc affecterBlocWithChambre(Bloc bloc);
+
+    Bloc affecterBlocAFoyer( String nomBloc, String nomFoyer) ;
+
 }
+

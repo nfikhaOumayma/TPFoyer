@@ -77,7 +77,7 @@ public class BlocController {
     }
 
     @GetMapping("/name")
-    public List<Bloc> getBlocsByNom(@RequestParam String nomBloc) {
+    public Bloc getBlocsByNom(@RequestParam String nomBloc) {
         return blocService.findByBlocName(nomBloc);
     }
 
@@ -134,5 +134,17 @@ public class BlocController {
     @GetMapping("/{nomBloc}/OR/{capaciteBloc}")
     public List<Bloc> findByNomBlocOrCapaciteBloc(@PathVariable String nomBloc, @PathVariable Long capaciteBloc) {
         return blocService.findByNomBlocOrCapaciteBloc(nomBloc, capaciteBloc);
+    }
+    @PostMapping("/affecterBlocWithChambre")
+    public Bloc affecterBlocWithChambre(@RequestBody Bloc bloc){
+        return blocService.affecterBlocWithChambre(bloc);
+    }
+
+    @PutMapping("/{nomFoyer}/blocs/{nomBloc}")
+    public Bloc affecterBlocAFoyer(
+            @PathVariable String nomFoyer,
+            @PathVariable String nomBloc) {
+
+        return blocService.affecterBlocAFoyer(nomBloc, nomFoyer);
     }
 }

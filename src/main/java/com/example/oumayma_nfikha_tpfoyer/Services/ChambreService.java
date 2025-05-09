@@ -2,11 +2,13 @@ package com.example.oumayma_nfikha_tpfoyer.Services;
 
 import com.example.oumayma_nfikha_tpfoyer.Entite.*;
 import com.example.oumayma_nfikha_tpfoyer.Services.IServices.IChambreService;
+import com.example.oumayma_nfikha_tpfoyer.repositories.BlocRepository;
 import com.example.oumayma_nfikha_tpfoyer.repositories.ChambreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +16,9 @@ public class ChambreService implements IChambreService {
 
     @Autowired
     ChambreRepository chambreRepository;
+
+    @Autowired
+    BlocRepository blocRepository;
 
     @Override
     public Chambre add(Chambre chambre) {
@@ -104,4 +109,47 @@ public class ChambreService implements IChambreService {
     public Long countByTypeCAndBloc_Foyer_NomFoyer(TypeChambre typeC, String nomFoyer) {
         return chambreRepository.countByTypeCAndBloc_Foyer_NomFoyer(typeC, nomFoyer);
     }
+
+    @Override
+    public List<Chambre> getChambreParNomBloc(String nomBloc) {
+        //chercher les bloc dans chambre where nomBloc
+
+        List <Chambre> chambreList = this.findAll();
+        List <Chambre> chambreList2 = new ArrayList<>();
+        for(Chambre chambre : chambreList){
+            if (chambre.getNumeroChambre().equals(nomBloc)){
+                chambreList2.add(chambre);
+            }
+
+        }
+        return chambreList2;
+    }
+
+    @Override
+    public List<Chambre> getChambresParNomBlocKeyword(String nomBloc) {
+        return chambreRepository.findByBlocNomBloc(nomBloc);
+    }
+
+    @Override
+    public Bloc affecterChambresABloc(List<Long> numeroChambre, String nomBloc) {
+      Bloc b = blocRepository.findByNomBloc(nomBloc);
+      List<Chambre> chambreList = new ArrayList<>();
+
+      for (Long numeroChambre1 : numeroChambre) {
+          chambreList.add(chambreRepository.findByNumeroChambre(numeroChambre1));
+      }
+      for (Chambre chambre : chambreList) {
+          chambre.setBloc(b);
+          chambreRepository.save(chambre);
+      }
+
+      return b;
+    }
+
+    @Override
+    public long nbChambreParTypeEtBloc(TypeChambre type, long idBloc) {
+        return chambreRepository.countByTypeAndBloc(type, idBloc);
+    }
+
+
 }

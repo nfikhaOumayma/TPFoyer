@@ -28,6 +28,6 @@ public class Reservation {
     @Column(name="estValide")
     Boolean estValide;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private Set<Etudiant> etudiants;
 }

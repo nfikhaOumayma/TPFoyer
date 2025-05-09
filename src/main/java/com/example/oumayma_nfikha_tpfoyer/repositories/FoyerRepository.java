@@ -14,4 +14,6 @@ public interface FoyerRepository extends JpaRepository<Foyer, Long> {
     List<Foyer> findByBlocs_IdBlocAndCapaciteFoyer(Long idBloc, Long capaciteFoyer);
 
     Foyer findByBlocs_IdBlocAndUniversite_IdUniversite(Long idBloc, Long idUniversite);
+
+    Foyer findByNomFoyer(String nomFoyer);
 }

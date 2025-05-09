@@ -27,11 +27,11 @@ public class Chambre {
     @Enumerated(EnumType.STRING)
     TypeChambre typeC ;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     @JsonIgnore
     private Bloc bloc;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Reservation> reservations;
 
