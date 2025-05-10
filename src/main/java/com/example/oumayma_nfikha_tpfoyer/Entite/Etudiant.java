@@ -1,5 +1,6 @@
 package com.example.oumayma_nfikha_tpfoyer.Entite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -37,5 +38,6 @@ public class Etudiant {
     LocalDate dateNaissance;
 
     @ManyToMany(mappedBy = "etudiants",fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Reservation> reservations;
 }

@@ -2,12 +2,15 @@ package com.example.oumayma_nfikha_tpfoyer.Services;
 
 import com.example.oumayma_nfikha_tpfoyer.Entite.*;
 import com.example.oumayma_nfikha_tpfoyer.Services.IServices.IReservationService;
+import com.example.oumayma_nfikha_tpfoyer.repositories.ChambreRepository;
 import com.example.oumayma_nfikha_tpfoyer.repositories.EtudiantRepository;
 import com.example.oumayma_nfikha_tpfoyer.repositories.ReservationRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -17,6 +20,9 @@ public class ReservationService implements IReservationService {
 
     @Autowired
     EtudiantRepository etudiantRepository;
+
+    @Autowired
+    ChambreRepository chambreRepository;
 
     @Override
     public Reservation add(Reservation reservation) {
@@ -99,22 +105,45 @@ public class ReservationService implements IReservationService {
     @Override
     public void annulerReservation(String cinEtudiant) {
 
-        // Find the student by CIN
         Etudiant etudiant = etudiantRepository.findByCin(cinEtudiant);
         if (etudiant == null) {
             throw new RuntimeException("Etudiant not found");
         }
 
-        // Find all reservations for the student
         List<Reservation> reservations = reservationRepository.findByEtudiantCin(cinEtudiant);
 
         for (Reservation reservation : reservations) {
-            // Remove the student from the reservation
             reservation.getEtudiants().remove(etudiant);
 
-            // Save the updated reservation
             reservationRepository.save(reservation);
         }
+    }
+
+
+    @Override
+    public Reservation ajouterReservationETAssignerAChambreEtAEtudiant(Long numChambre, String cinEtudiant) {
+        Etudiant etudiant = etudiantRepository.findByCin(cinEtudiant);
+        if (etudiant == null) {
+            throw new EntityNotFoundException("Etudiant not found with cin: " + cinEtudiant);
+        }
+
+        Chambre chambre = chambreRepository.findByNumeroChambre(numChambre);
+        if (chambre == null) {
+            throw new EntityNotFoundException("Chambre not found with number: " + numChambre);
+        }
+
+        Reservation reservation = Reservation.builder()
+                .anneUniversitaire(LocalDate.now())
+                .estValide(true)
+                .etudiants(new HashSet<>())
+                .build();
+
+        reservation.getEtudiants().add(etudiant);
+        chambre.getReservations().add(reservation);
+
+        reservationRepository.save(reservation);
+        chambreRepository.save(chambre);
+        return reservation;
     }
 
 }

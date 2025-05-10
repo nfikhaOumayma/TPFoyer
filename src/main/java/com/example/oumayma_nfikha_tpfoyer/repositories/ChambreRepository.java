@@ -30,5 +30,8 @@ public interface ChambreRepository extends JpaRepository<Chambre, Long> {
 
     @Query("SELECT COUNT(c) FROM Chambre c WHERE c.typeC = :type AND c.bloc.idBloc = :idBloc")
     long countByTypeAndBloc(@Param("type") TypeChambre type, @Param("idBloc") long idBloc);
+
+    @Query("SELECT c FROM Chambre c GROUP BY c.bloc")
+    List<Chambre> findChambresGroupedByBloc();
 }
 

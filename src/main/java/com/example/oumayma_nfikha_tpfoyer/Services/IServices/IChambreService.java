@@ -53,4 +53,6 @@ public interface IChambreService {
     Bloc affecterChambresABloc(List<Long> numeroChambre, String nomBloc);
 
     long nbChambreParTypeEtBloc( TypeChambre type, long idBloc) ;
+
+    void listeChambreParBloc();
 }

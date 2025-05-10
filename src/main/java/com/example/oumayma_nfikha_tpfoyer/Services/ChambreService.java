@@ -4,14 +4,19 @@ import com.example.oumayma_nfikha_tpfoyer.Entite.*;
 import com.example.oumayma_nfikha_tpfoyer.Services.IServices.IChambreService;
 import com.example.oumayma_nfikha_tpfoyer.repositories.BlocRepository;
 import com.example.oumayma_nfikha_tpfoyer.repositories.ChambreRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
+@Component
 public class ChambreService implements IChambreService {
 
     @Autowired
@@ -150,6 +155,22 @@ public class ChambreService implements IChambreService {
     public long nbChambreParTypeEtBloc(TypeChambre type, long idBloc) {
         return chambreRepository.countByTypeAndBloc(type, idBloc);
     }
+
+    @Override
+    @Scheduled(fixedRate = 60000)
+    public void listeChambreParBloc() {
+        List<Chambre> chambres = chambreRepository.findChambresGroupedByBloc();
+
+
+            for (Chambre chambre : chambres) {
+                log.info("Chambre ID: {}, Numéro: {}, Type: {}, Bloc: {}",
+                        chambre.getIdChambre(),
+                        chambre.getNumeroChambre(),
+                        chambre.getTypeC(),
+                        chambre.getBloc() != null ? chambre.getBloc().getIdBloc() : "Sans bloc");
+            }
+        }
+
 
 
 }

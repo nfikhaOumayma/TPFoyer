@@ -104,4 +104,12 @@ public class ReservationController {
     public void annulerReservation(@PathVariable String cinEtudiant) {
             reservationService.annulerReservation(cinEtudiant);
     }
+
+    @PostMapping("/ajouter/{numChambre}/{cinEtudiant}")
+    public Reservation ajouterReservation(
+            @PathVariable Long numChambre,
+            @PathVariable String cinEtudiant) {
+        Reservation reservation = reservationService.ajouterReservationETAssignerAChambreEtAEtudiant(numChambre, cinEtudiant);
+        return reservation;
+    }
 }

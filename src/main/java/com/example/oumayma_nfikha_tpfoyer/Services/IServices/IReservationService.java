@@ -22,4 +22,6 @@ public interface IReservationService {
     List<Reservation> getReservationParAnneeUniversitaire(LocalDate debutAnnee, LocalDate finAnnee ) ;
     void annulerReservation(String cinEtudiant);
 
+    Reservation ajouterReservationETAssignerAChambreEtAEtudiant(Long numChambre , String cinEtudiant);
+
 }
